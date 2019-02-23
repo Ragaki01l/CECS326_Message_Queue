@@ -17,7 +17,7 @@ int main()
 	uniform_int_distribution<> distribution(0,100000);
 	int msgkey=1234;
 	int qid = msgget(msgkey,IPC_CREAT | 0666); //Key Generator
-	int received = 0;
+	int sent = 0;
 	int value;
 	
 	struct buf
@@ -27,27 +27,24 @@ int main()
 	};
 
 	buf msg;
-	msg.mtype = 997;
+	msg.mtype = 257;
 	int size = sizeof(msg)-sizeof(long);
 
 	while(true){
+
 		value = distribution(rng);
-		printf("%d\n",value);
-		if(value < 100)
-			{
-				break;
-			}
-		else if(received!=-1 && value%msg.mtype==0){
-			msg.mtype = 997;
-			strcpy(msg.message, "ProbeA");
+		else if(value%msg.mtype==0){
+			msg.mtype = 257;
+			strcpy(msg.message, "ProbeB");
 			msgsnd(qid, (struct msgbuf *)&msg, size,0);
-			received=msgrcv(qid, (struct msgbuf *)&msg, size,41,0);	
-			printf("%s\n",msg.message);
-		}		
+			sent++;
+		}
+		
+		
 	
 	}
-	msg.mtype=1;
-	strcpy(msg.message,"ProbeA Closed");
+	msg.mtype=2;
+	strcpy(msg.message,"ProbeB Closed");
 	msgsnd(qid,(struct msgbuf *) &msg, size,0);
 
 	return 0;
