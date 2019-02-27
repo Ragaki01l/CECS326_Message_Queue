@@ -20,6 +20,8 @@ int main()
 	int received = 0;
 	int value;
 	
+
+
 	struct buf
 	{
     	long mtype;// Required
@@ -32,7 +34,7 @@ int main()
 
 	while(true){
 		value = distribution(rng);
-		printf("%d\n",value);
+                //printf("%d\n",value);
 		if(value < 100)
 			{
 				break;

@@ -17,9 +17,11 @@ int main()
 	uniform_int_distribution<> distribution(0,100000);
 	int msgkey=1234;
 	int qid = msgget(msgkey,IPC_CREAT | 0666); //Key Generator
-	int sent = 0;
+
 	int value;
 	
+        cout<<qid<<endl;
+
 	struct buf
 	{
     	long mtype;// Required
@@ -27,25 +29,26 @@ int main()
 	};
 
 	buf msg;
-	msg.mtype = 257;
+	msg.mtype = 100;
 	int size = sizeof(msg)-sizeof(long);
+	strcpy(msg.message,to_string(getpid()).c_str());
+
+	msgsnd(qid, (struct msgbuf *)&msg, size,0);
 
 	while(true){
 
 		value = distribution(rng);
-		else if(value%msg.mtype==0){
-			msg.mtype = 257;
+		msg.mtype = 257;
+                
+		if(value%msg.mtype==0){
 			strcpy(msg.message, "ProbeB");
 			msgsnd(qid, (struct msgbuf *)&msg, size,0);
-			sent++;
+			
 		}
 		
 		
 	
-	}
-	msg.mtype=2;
-	strcpy(msg.message,"ProbeB Closed");
-	msgsnd(qid,(struct msgbuf *) &msg, size,0);
+        }
 
 	return 0;
 
