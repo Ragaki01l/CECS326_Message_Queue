@@ -29,26 +29,27 @@ int main()
 	};
 
 	buf msg;
+	
+	// First message sent from ProbeB is the pid as msg.message with msg.mtype as 100.
 	msg.mtype = 100;
 	int size = sizeof(msg)-sizeof(long);
-	strcpy(msg.message,to_string(getpid()).c_str());
+	strncpy(msg.message,to_string(getpid()).c_str());
 
 	msgsnd(qid, (struct msgbuf *)&msg, size,0);
 
-	while(true){
+	while(true)													// ProbeB will continue to send messages until the Hub
+	{															// receives over 10,000 messages and then forces ProbeB to exit via force_patch.
 
-		value = distribution(rng);
-		msg.mtype = 257;
+		value = distribution(rng);								// random value to compare with magic seed.
+		msg.mtype = 257;										// magic seed set as 257
                 
-		if(value%msg.mtype==0){
-			strcpy(msg.message, "ProbeB");
+		if(value%msg.mtype==0)									// If random value is divisible by magic seed, message will be sent to Hub.
+		{
+			strncpy(msg.message, "ProbeB");
 			msgsnd(qid, (struct msgbuf *)&msg, size,0);
 			
 		}
-		
-		
-	
-        }
+    }
 
 	return 0;
 
