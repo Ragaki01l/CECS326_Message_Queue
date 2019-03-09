@@ -32,7 +32,7 @@ int main()
 
 	// First message sent from ProbeC is the terminating message as msg.message with msg.mtype as 3.
     msgkill.mtype=3;
-    strncpy(msgkill.message,"C killed");
+    strcpy(msgkill.message,"C killed");
 
     kill_patch(qid,(struct msgbuf *) &msgkill, size,msgkill.mtype);
 
@@ -44,7 +44,7 @@ int main()
 		if(value%msg.mtype==0)								// If random value is divisible by magic seed, message will be sent to Hub.
 		{
 			msg.mtype = 251;
-			strncpy(msg.message, "ProbeC");
+			strcpy(msg.message, "ProbeC");
 			msgsnd(qid, (struct msgbuf *)&msg, size,0);
 		}
     }

@@ -19,8 +19,6 @@ int main()
 	int qid = msgget(msgkey,IPC_CREAT | 0666); //Key Generator
 
 	int value;
-	
-        cout<<qid<<endl;
 
 	struct buf
 	{
@@ -33,7 +31,7 @@ int main()
 	// First message sent from ProbeB is the pid as msg.message with msg.mtype as 100.
 	msg.mtype = 100;
 	int size = sizeof(msg)-sizeof(long);
-	strncpy(msg.message,to_string(getpid()).c_str());
+	strcpy(msg.message,to_string(getpid()).c_str());
 
 	msgsnd(qid, (struct msgbuf *)&msg, size,0);
 
@@ -45,7 +43,7 @@ int main()
                 
 		if(value%msg.mtype==0)									// If random value is divisible by magic seed, message will be sent to Hub.
 		{
-			strncpy(msg.message, "ProbeB");
+			strcpy(msg.message, "ProbeB");
 			msgsnd(qid, (struct msgbuf *)&msg, size,0);
 			
 		}
