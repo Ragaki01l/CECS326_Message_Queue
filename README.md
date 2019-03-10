@@ -1,5 +1,5 @@
 # CECS326_Message_Queue
-Timothy Tran(tht020@ucsd.edu),
+Timothy Tran(tht020@ucsd.edu), Wiiliam Jorgensen (William.Jorgensen@student.csulb.edu)
 3/12/19
 Course Number: CECS326
 
