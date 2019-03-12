@@ -1,3 +1,8 @@
+// Timothy Tran, William Jorgensen
+// Hub.cpp
+/* The following program relies on 3 other programs for operation. It receives messages from ProbeA,ProbeB,ProbeC.
+It will send a message telling ProbeA it has received a message. It will remotely close ProbeB once it reaches 10,000 messages.*/
+
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -8,16 +13,18 @@
 #include <cstdlib>
 #include <random>
 #include "force_patch.h"
-
+//shortens call of std library functions
 using namespace std;
 
+//Pre-Condition:Start of Program
+//Post-Condition:Exits by deallocating the message queue on completion.
 int main(){
-	int msgkey=1234;
+	int msgkey=1234; //key for message queue
 
-	int qid = msgget(msgkey,IPC_CREAT | 0666); 	//Key Generator
-	int Aoff,Boff,Coff=0;						// flags for ProbeA, ProbeB, ProbeC being on or off
-	int received=0;
-	int pid=1;
+	int qid = msgget(msgkey,IPC_CREAT | 0666); 	//creates the queue's id.
+	int Aoff,Boff,Coff=0;						//flags for ProbeA, ProbeB, ProbeC being on or off
+	int received=0;								//counts the amount of messges Hub has received.
+	int pid=1;									//hold pid of ProbeB for exiting purposes.
 	
 	struct buf
 	{
@@ -25,8 +32,8 @@ int main(){
     	char message[50]; //Message content
 	};
 
-	buf msg;
-	int size = sizeof(msg)-sizeof(long);
+	buf msg;									// initialize the msg
+	int size = sizeof(msg)-sizeof(long);		// sets size of message to a variable.
 
 
 	//Different messages

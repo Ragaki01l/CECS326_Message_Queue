@@ -1,5 +1,5 @@
 # CECS326_Message_Queue
-Timothy Tran(tht020@ucsd.edu), Wiiliam Jorgensen (William.Jorgensen@student.csulb.edu)
+Timothy Tran(tht020@ucsd.edu),Wiiliam Jorgensen (William.Jorgensen@student.csulb.edu)
 3/12/19
 Course Number: CECS326
 
@@ -23,7 +23,7 @@ Critique:
 The programs are non-portable. 
 Must be re-compiled between 32 and 64 bit operating systems.
  Will not cleanly execute if the target message queue is not empty at the start of execution. 
- This can be from improperly closing the Hub process or any of the Probe processes using ctrl-c. 
+ This can be from improperly closing the Hub process or any of the Probe processes.
  Testing can vary and be inconsistent due to the random nature of the Probe messages. 
  ProbeA can have instances of not sending any messages other than the kill message due to its closing condition being easy to fulfill before its send message condition. 
  ProbeB may not send any messages either if the other probes are allowed to run to 10,000 messages before ProbeB can send its first. 
