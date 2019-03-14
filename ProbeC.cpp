@@ -1,4 +1,4 @@
-// Timothy Tran, William Jorgensen
+// Timothy Tran, William Jorgensen, Adrian Benhamou
 // ProbeC.cpp
 /*The following program will generate a random value.
 If that value is divisible by the magic number will send a message to the Hub.

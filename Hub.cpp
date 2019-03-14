@@ -1,4 +1,4 @@
-// Timothy Tran, William Jorgensen
+// Timothy Tran, William Jorgensen, Adrian Benhamou
 // Hub.cpp
 /* The following program relies on 3 other programs for operation. It receives messages from ProbeA,ProbeB,ProbeC.
 It will send a message telling ProbeA it has received a message. It will remotely close ProbeB once it reaches 10,000 messages.*/
